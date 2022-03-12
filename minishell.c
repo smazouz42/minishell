@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/12 15:51:48 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/12 16:14:29 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,21 @@ void	color(int c_nb)
 	if (c_nb == blue)
 		write(1, "\033[0;34m", ft_strlen("\033[0;34m"));
 	if (c_nb == cyan)
-		write(1, "\033[0;36m", ft_strlen("\033[0;36m"));
+		write(1, "\033[1;36m", ft_strlen("\033[0;36m"));
 	if (c_nb == yellow)
 		write(1, "\033[0;33m", ft_strlen("\033[0;33m"));
 	if (c_nb == white)
 		write(1, "\033[0;37m", ft_strlen("\033[0;37m"));
+	if (c_nb == green)
+		write(1, "\033[0;32m", ft_strlen("\033[0;32m"));
 }
 
 void	prompt(void)
 {
+	color(green);
+	write(1, "➜", ft_strlen("➜"));
 	color(cyan);
-	write(1, "➜  minishell ", ft_strlen("➜  minishell "));
+	write(1, "  minishell ", ft_strlen("  minishell "));
 	color(yellow);
 	write(1, "✗ ", ft_strlen("✗ "));
 	color(white);
@@ -45,6 +49,8 @@ int	main(int ac, char **av , char **env)
 	input = get_next_line(0);
 	while (input)
 	{
+		if (!strcmp(input, "exit\n"))
+			exit(0);
 		prompt();
 		input = get_next_line(0);
 	}
