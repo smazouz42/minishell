@@ -3,15 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/12 15:34:52 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/12 15:51:48 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define KNRM  "\x1B[0m"
+
+void	color(int c_nb)
+{
+	if (c_nb == red)
+		write(1, "\033[0;31m", ft_strlen("\033[0;31m"));
+	if (c_nb == blue)
+		write(1, "\033[0;34m", ft_strlen("\033[0;34m"));
+	if (c_nb == cyan)
+		write(1, "\033[0;36m", ft_strlen("\033[0;36m"));
+	if (c_nb == yellow)
+		write(1, "\033[0;33m", ft_strlen("\033[0;33m"));
+	if (c_nb == white)
+		write(1, "\033[0;37m", ft_strlen("\033[0;37m"));
+}
+
+void	prompt(void)
+{
+	color(cyan);
+	write(1, "➜  minishell ", ft_strlen("➜  minishell "));
+	color(yellow);
+	write(1, "✗ ", ft_strlen("✗ "));
+	color(white);
+}
 
 int	main(int ac, char **av , char **env)
 {
@@ -19,13 +41,11 @@ int	main(int ac, char **av , char **env)
 
 	if (!env[0])
 		return (0);
-	printf("%sred\n", KNRM);
-
-	write(1, "➜  minishell ✗ ", ft_strlen("➜  minishell ✗ "));
+	prompt();
 	input = get_next_line(0);
 	while (input)
 	{
-		write(1, "➜  minishell ✗ ", ft_strlen("➜  minishell ✗ "));
+		prompt();
 		input = get_next_line(0);
 	}
 }

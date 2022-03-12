@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/12 15:21:09 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/12 15:45:26 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define BUFFER_SIZE 1
+# define red 0
+# define blue 1
+# define cyan 2
+# define yellow 3
+# define white 4
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
