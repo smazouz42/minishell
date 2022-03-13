@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/13 11:44:05 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/13 14:35:28 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-char	*get_next_line(int fd);
-
-//for get_next_line
+//utils
 char	*ft_strjoin(char *s0, char *s1);
 int		ft_strlen(char *c);
 int		ft_strchr(char *str, int c);

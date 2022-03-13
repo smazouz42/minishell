@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/13 12:22:24 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/13 14:42:21 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,20 @@ int	main(int ac, char **av, char **env)
 {
 	char	*input;
 
+	(void)ac;
+	(void)av;
+	(void)env;
 	if (!env[0])
 		return (0);
-	signal(2, sighandler);
-	signal(SIGQUIT, sighandler);
+	// signal(2, sighandler);
+	// signal(SIGQUIT, sighandler);
 	prompt();
-	input = get_next_line(0);
+	input = readline("");
 	while (input)
 	{
 		if (!strcmp(input, "exit\n"))
 			exit(0);
 		prompt();
-		input = get_next_line(0);
+		input = readline("");
 	}
 }
