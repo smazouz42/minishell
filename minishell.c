@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/12 16:14:29 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/13 12:10:25 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,25 @@ void	prompt(void)
 	color(white);
 }
 
+void	sighandler(int sig)
+{
+	if (sig == 2)
+	{
+		write(1, "\n", 1);
+		pro();
+	}
+	if (sig == SIGQUIT)
+		return ;
+}
+
 int	main(int ac, char **av , char **env)
 {
 	char	*input;
 
 	if (!env[0])
 		return (0);
+	signal(2, sighandler);
+	signal(SIGQUIT, sighandler);
 	prompt();
 	input = get_next_line(0);
 	while (input)
