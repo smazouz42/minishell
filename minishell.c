@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/13 12:10:25 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/13 12:22:24 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	sighandler(int sig)
 	if (sig == 2)
 	{
 		write(1, "\n", 1);
-		pro();
+		prompt();
 	}
 	if (sig == SIGQUIT)
 		return ;
 }
 
-int	main(int ac, char **av , char **env)
+int	main(int ac, char **av, char **env)
 {
 	char	*input;
 
