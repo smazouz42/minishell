@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/17 14:44:31 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/17 15:23:19 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	color(int c_nb)
 {
 	if (c_nb == red)
-		write(1, "\033[0;31m", ft_strlen("\033[0;31m"));
+		write(1, "\033[0;31m", slen("\033[0;31m"));
 	if (c_nb == blue)
-		write(1, "\033[0;34m", ft_strlen("\033[0;34m"));
+		write(1, "\033[0;34m", slen("\033[0;34m"));
 	if (c_nb == cyan)
-		write(1, "\033[1;36m", ft_strlen("\033[0;36m"));
+		write(1, "\033[1;36m", slen("\033[0;36m"));
 	if (c_nb == yellow)
-		write(1, "\033[0;33m", ft_strlen("\033[0;33m"));
+		write(1, "\033[0;33m", slen("\033[0;33m"));
 	if (c_nb == white)
-		write(1, "\033[0;37m", ft_strlen("\033[0;37m"));
+		write(1, "\033[0;37m", slen("\033[0;37m"));
 	if (c_nb == green)
-		write(1, "\033[0;32m", ft_strlen("\033[0;32m"));
+		write(1, "\033[0;32m", slen("\033[0;32m"));
 }
 
 void	sighandler(int sig)
@@ -60,6 +60,7 @@ int	main(int ac, char **av, char **env)
 			add_history(input);
 		if (!strcmp(input, "exit"))
 			exit(0);
+		parcer(input);
 		free(input);
 		input = readline(PROMPT);
 	}

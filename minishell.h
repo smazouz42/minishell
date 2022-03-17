@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/14 10:24:43 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/17 16:41:12 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,16 @@
 
 //utils
 char	*ft_strjoin(char *s0, char *s1);
-int		ft_strlen(char *c);
+int		slen(char *c);
 int		ft_strchr(char *str, int c);
 char	*ft_strdup(char *s);
+void	error_msg(char *error);
+void	color(int c_nb);
+
+//4 parce
+void	parcer(char *input);
+int		check_errors(char *input);
+char	*add_parentheses(char *input);
+
 
 #endif

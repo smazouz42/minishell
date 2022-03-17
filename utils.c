@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:18:52 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/12 15:19:01 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:15:24 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	*ft_strjoin(char *s0, char *s1)
 
 	if (!s0)
 		s0 = ft_strdup("");
-	s0_len = ft_strlen(s0);
-	s1_len = ft_strlen(s1);
+	s0_len = slen(s0);
+	s1_len = slen(s1);
 	re = (char *)malloc(s0_len + s1_len + 1);
 	if (!re)
 		return (0);
@@ -38,7 +38,7 @@ char	*ft_strjoin(char *s0, char *s1)
 	return (free(s0), re);
 }
 
-int	ft_strlen(char *c)
+int	slen(char *c)
 {
 	int	l;
 
@@ -74,7 +74,7 @@ char	*ft_strdup(char *s)
 	int		len;
 	int		i;
 
-	len = ft_strlen(s);
+	len = slen(s);
 	re = (char *)malloc(len + 1);
 	if (!re)
 		return (0);
@@ -86,4 +86,12 @@ char	*ft_strdup(char *s)
 	}
 	re[i] = '\0';
 	return (re);
+}
+
+void	error_msg(char *error)
+{
+	color(red);
+	write(2, "Error:\n", slen("error:\n"));
+	color(white);
+	write(2, error, slen(error));
 }

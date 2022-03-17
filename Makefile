@@ -1,6 +1,6 @@
 NAME = minishell
 INC = minishell.h
-SRC = utils.c
+SRC = utils.c parcer.c check_errors.c add_parentheses.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
