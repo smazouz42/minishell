@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/13 14:42:21 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:44:31 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,14 @@ void	color(int c_nb)
 		write(1, "\033[0;32m", ft_strlen("\033[0;32m"));
 }
 
-void	prompt(void)
-{
-	color(green);
-	write(1, "➜", ft_strlen("➜"));
-	color(cyan);
-	write(1, "  minishell ", ft_strlen("  minishell "));
-	color(yellow);
-	write(1, "✗ ", ft_strlen("✗ "));
-	color(white);
-}
-
 void	sighandler(int sig)
 {
-	if (sig == 2)
+	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
-		prompt();
+		write(1,"\n",1);
+		rl_on_new_line();
+		rl_replace_line("",0);
+		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 		return ;
@@ -59,15 +50,17 @@ int	main(int ac, char **av, char **env)
 	(void)env;
 	if (!env[0])
 		return (0);
-	// signal(2, sighandler);
-	// signal(SIGQUIT, sighandler);
-	prompt();
-	input = readline("");
+
+	signal(2, sighandler);
+	signal(SIGQUIT, sighandler);
+	input = readline(PROMPT);
 	while (input)
 	{
-		if (!strcmp(input, "exit\n"))
+		if(input != NULL && input[0] !='\0')
+			add_history(input);
+		if (!strcmp(input, "exit"))
 			exit(0);
-		prompt();
-		input = readline("");
+		free(input);
+		input = readline(PROMPT);
 	}
 }

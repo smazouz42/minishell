@@ -1,19 +1,32 @@
 NAME = minishell
 INC = minishell.h
-SRC = minishell.c utils.c
+SRC = utils.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+MAIN = minishell.c
+
+RED = \033[0;36m
+
+RESET = \033[0m
 
 all : $(NAME)
+	@echo "$(RED) \
+			███╗   ███╗██╗███╗  ██╗██╗ ██████╗██╗  ██╗███████╗██╗     ██╗    \n\
+			████╗ ████║██║████╗ ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
+			██╔████╔██║██║██╔██╗██║██║╚█████╗ ███████║█████╗  ██║     ██║     \n\
+			██║╚██╔╝██║██║██║╚████║██║ ╚═══██╗██╔══██║██╔══╝  ██║     ██║     \n\
+			██║ ╚═╝ ██║██║██║ ╚███║██║██████╔╝██║  ██║███████╗███████╗███████╗\n\
+			╚═╝     ╚═╝╚═╝╚═╝  ╚══╝╚═╝╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ \n $(RESET)"
 
-$(NAME) : $(OBJ) $(INC)
-	@$(CC) $(CFLAGS) $(OBJ) -L /goinfre/moulmado/.brew/opt/readline -lreadline -o $(NAME)
-
+$(NAME) : $(OBJ) $(INC) $(MAIN)
+	$(CC) $(CFLAGS) $(MAIN) $(OBJ) -L $(shell brew --prefix readline)/lib -I $(shell brew --prefix readline)/include -lreadline -o $(NAME)
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 clean :
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 
 fclean : clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
-re : fclear all
+re : fclean all

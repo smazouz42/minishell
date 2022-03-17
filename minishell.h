@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/13 14:35:28 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:24:43 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
+
+# define PROMPT "\033[0;32m➜  \033[1;36mminishell \033[0;33m✗ \033[0;0m"
 
 //utils
 char	*ft_strjoin(char *s0, char *s1);
