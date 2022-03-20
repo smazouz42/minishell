@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/17 16:41:12 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:51:58 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 # include <termios.h>
 
 # define PROMPT "\033[0;32m➜  \033[1;36mminishell \033[0;33m✗ \033[0;0m"
+
+// typedef struct s_input
+// {
+	
+// };
 
 //utils
 char	*ft_strjoin(char *s0, char *s1);
