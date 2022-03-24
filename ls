@@ -1,10 +1,16 @@
 Makefile
 add_parentheses.c
+add_parentheses.o
 check_errors.c
+check_errors.o
 file
+ls
+minishell
 minishell.c
 minishell.h
 parcer.c
+parcer.o
 postfix_expression.c
+said
 utils.c
 utils.o

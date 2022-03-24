@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/20 13:22:19 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:53:29 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	parcer(char *input)
 {
-	check_errors(input);
-	input = add_parentheses(input);
+	if(check_errors(input) == 1)
+		return ;
+	// input = add_parentheses(input);
+	// printf("%s\n", input);
 }

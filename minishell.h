@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/18 15:51:58 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:48:43 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define yellow 3
 # define white 4
 # define green 5
+# define OP 100
+# define CMD 101
+// # define FILE 110
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -30,11 +33,37 @@
 
 # define PROMPT "\033[0;32m➜  \033[1;36mminishell \033[0;33m✗ \033[0;0m"
 
-// typedef struct s_input
-// {
-	
-// };
+typedef struct s_cmd
+{
+    int     valid;
+    char    *name;
+    char    **l;
+    char    *path;
+} t_cmd;
 
+
+typedef struct s_op
+{
+    int     prio;
+} t_op;
+
+typedef struct s_file
+{
+    char    *name;
+    char    *mod;
+    int     fd;
+    t_cmd   *cmd;
+} t_file;
+
+typedef struct s_list
+{
+    int     type;
+    t_file *file;
+    t_cmd   *cmd;
+    t_op    *op;
+    struct s_list *next;
+    struct s_list *prev;
+}   t_list;
 //utils
 char	*ft_strjoin(char *s0, char *s1);
 int		slen(char *c);
@@ -47,6 +76,8 @@ void	color(int c_nb);
 void	parcer(char *input);
 int		check_errors(char *input);
 char	*add_parentheses(char *input);
+
+//
 
 
 #endif
