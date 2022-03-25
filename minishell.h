@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/24 11:48:43 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/24 16:44:52 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,26 @@ typedef struct s_file
     t_cmd   *cmd;
 } t_file;
 
-typedef struct s_list
+// typedef struct s_list
+// {
+//     int     type;
+//     t_file *file;
+//     t_cmd   *cmd;
+//     t_op    *op;
+//     struct s_list *next;
+//     struct s_list *prev;
+// }   t_list;
+
+//tree
+typedef struct s_tree
 {
-    int     type;
-    t_file *file;
+    t_tree  *previous;
+    t_tree  *branch1;
+    t_tree  *branch2;
     t_cmd   *cmd;
     t_op    *op;
-    struct s_list *next;
-    struct s_list *prev;
-}   t_list;
+    t_file  *file;
+}               t_tree;
 //utils
 char	*ft_strjoin(char *s0, char *s1);
 int		slen(char *c);
