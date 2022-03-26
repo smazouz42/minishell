@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 4DeR <4DeR@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/26 12:29:25 by 4DeR             ###   ########.fr       */
+/*   Updated: 2022/03/26 17:00:43 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_stack
     char *op;
     struct s_stack *prev;
     struct s_stack *next;
-    char    *postfix;
 }           t_stack;
 typedef struct s_cmd
 {

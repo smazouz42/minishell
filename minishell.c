@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/26 11:49:21 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/26 16:43:41 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,17 @@ int	main(int ac, char **av, char **env)
 
 	signal(2, sighandler);
 	signal(SIGQUIT, sighandler);
-	input = readline(PROMPT);
-	while (input)
-	{
-		if(input != NULL && input[0] !='\0')
-			add_history(input);
-		if (!strcmp(input, "exit"))
-			exit(0);
-		parcer(input);
-		free(input);
-		input = readline(PROMPT);
-	}
+	// input = readline(PROMPT);
+	input = ft_strdup("ls && ls | cat");
+	parcer(input);
+	// while (input)
+	// {
+		// if(input != NULL && input[0] !='\0')
+		// 	add_history(input);
+		// if (!strcmp(input, "exit"))
+		// 	exit(0);
+		// parcer(input);
+		// free(input);
+		// input = readline(PROMPT);
+	// }
 }
