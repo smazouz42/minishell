@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   postfix_expression.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 4DeR <4DeR@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:45:32 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/26 11:42:43 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/26 12:24:05 by 4DeR             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	get_prio(char *line ,int len, int yes)
 		return (1);
 	if ((line[len] == '>' || line[len] == '<') && yes == 2)
 		return (2);
+	return (0);
 }
 
 static void	get_op_nd_cmd(char *line, t_stack *stack, int *len, int yes)
@@ -27,7 +28,7 @@ static void	get_op_nd_cmd(char *line, t_stack *stack, int *len, int yes)
 	static int	tmp;
 	int			prio;
 
-	prio = get_prio(line, len, yes);
+	prio = get_prio(line, *len, yes);
 	line = ft_strjoin(line,ft_substr(line, tmp, (*len - tmp)));
 	if (!ft_lstsize(stack))
 		stack = ft_lstnew(ft_substr(line, *len, yes), prio);
@@ -37,7 +38,7 @@ static void	get_op_nd_cmd(char *line, t_stack *stack, int *len, int yes)
 		{
 			while (ft_lstlast(stack)->prio != 998)
 			{
-				line = ft_strjoin(line, ft_lstlast(stack)->op);
+				stack->postfix = ft_strjoin(stack->postfix, ft_lstlast(stack)->op);
 				ft_lstdellast(ft_lstlast(stack));
 			}
 			ft_lstdellast(ft_lstlast(stack));
@@ -46,7 +47,7 @@ static void	get_op_nd_cmd(char *line, t_stack *stack, int *len, int yes)
 			ft_lstadd_back(&stack,ft_lstnew(ft_substr(line, *len, yes), prio));
 		else
 		{
-			line = ft_strjoin(line,ft_lstlast(stack)->op);
+			stack->postfix = ft_strjoin(stack->postfix, ft_lstlast(stack)->op);
 		}
 	}
 	tmp = *len + yes;
@@ -57,14 +58,14 @@ char *postfix_expression(char *line)
 {
 	int len;
 	t_stack *stack;
-	char *fixpost;
 
+	stack = NULL;
 	len = 0;
 	while(line[len])
 	{
 		if(line[len] == '|' && line[len + 1] == '|')
 			get_op_nd_cmd(line, stack, &len, 2);
-		else if (line[len] = '&' && line[len + 1]== '&')
+		else if (line[len] == '&' && line[len + 1]== '&')
 			get_op_nd_cmd(line, stack, &len, 2);
 		else if(line[len] == '|' && line[len + 1] != '|')
 			get_op_nd_cmd(line, stack, &len, 1);
@@ -83,5 +84,6 @@ char *postfix_expression(char *line)
 		else
 			len++;
 	}
+	return (line);
 }
 

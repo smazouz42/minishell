@@ -1,6 +1,6 @@
 NAME = minishell
 INC = minishell.h
-SRC = utils.c parcer.c check_errors.c add_parentheses.c
+SRC = utils.c parcer.c check_errors.c add_parentheses.c postfix_expression.c ft_lstadd_back.c ft_lstclear.c ft_lstdellast.c ft_lstdelone.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_substr.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -30,3 +30,4 @@ fclean : clean
 	rm -rf $(NAME)
 
 re : fclean all
+# utils.c parcer.c check_errors.c add_parentheses.c 

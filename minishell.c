@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/25 10:47:07 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/26 11:49:21 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	sighandler(int sig)
 		write(1,"\n",1);
 		rl_on_new_line();
 		rl_replace_line("",0);
-		rl_REDisplay();
+		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: 4DeR <4DeR@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/26 11:46:36 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/03/26 12:29:25 by 4DeR             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_stack
 {
     int prio;
     char *op;
-    struct t_stack *prev;
-    struct t_stack *next;
+    struct s_stack *prev;
+    struct s_stack *next;
+    char    *postfix;
 }           t_stack;
 typedef struct s_cmd
 {
@@ -100,13 +101,16 @@ void	color(int c_nb);
 void	parcer(char *input);
 int		check_errors(char *input);
 char	*add_parentheses(char *input);
+char    *postfix_expression(char *line);
 
 //fix_post
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 //listlinked
-int	ft_lstsize(t_stack *lst);
+int	    ft_lstsize(t_stack *lst);
 void	ft_lstadd_back(t_stack **lst, t_stack *new);
-t_stack	*ft_lstlast(t_stack *lst);
+t_stack *ft_lstlast(t_stack *lst);
 void    ft_lstdellast(t_stack *stack);
+t_stack	*ft_lstnew(char *op, int prio);
+void	ft_lstdelone(t_stack *lst, void (*del)(void *));
 #endif
