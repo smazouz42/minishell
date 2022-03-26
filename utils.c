@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:18:52 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/17 16:15:24 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/25 10:46:58 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char	*ft_strdup(char *s)
 
 void	error_msg(char *error)
 {
-	color(red);
+	color(RED);
 	write(2, "Error:\n", slen("error:\n"));
-	color(white);
+	color(WHITE);
 	write(2, error, slen(error));
 }
