@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/27 15:00:11 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:30:31 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,15 @@ void	error_msg(char *error);
 void	color(int c_nb);
 
 //4 parce
-void	parcer(char *input);
+void	parser(char *input);
 int		check_errors(char *input);
 char	*add_parentheses(char *input);
 char	*postfix_expression(char *line);
 
 //fix_post
 char	*ft_substr(char *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t destsize);
 
 //listlinked
 int		ft_lstsize(t_stack *lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/27 17:14:26 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:30:26 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int ac, char **av, char **env)
 			add_history(input);
 		if (!strcmp(input, "exit"))
 			exit(0);
-		parcer(input);
+		parser(input);
 		free(input);
 		input = readline(PROMPT);
 	}
