@@ -31,4 +31,4 @@ fclean : clean
 	rm -rf $(NAME)
 
 re : fclean all
-# utils.c parcer.c check_errors.c add_parentheses.c 
+# utils.c parcer.c check_errors.c add_parentheses.c
