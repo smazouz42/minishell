@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/15 20:53:50 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:55:07 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ t_tree	*parser(char *input)
 		return ;
 	input = postfix_expression(input);
 	tree = tree_of_life(ft_split(input,','));
+	return (tree);
 }
