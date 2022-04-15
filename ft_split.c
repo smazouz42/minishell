@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 15:34:15 by smazouz           #+#    #+#             */
-/*   Updated: 2022/03/30 15:49:43 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/15 04:14:28 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	**free_tab(char	**tab)
 	return (NULL);
 }
 
-char	*get_next_word(char *s, char c, int *len)
+static char	*get_next_word(char *s, char c, int *len)
 {
 	int				x;
 	unsigned int	y;
@@ -43,7 +43,7 @@ char	*get_next_word(char *s, char c, int *len)
 	return (s + start);
 }
 
-int	ft_word_count(const char *str, char c)
+static int	ft_word_count(const char *str, char c)
 {
 	size_t	x;
 	size_t	y;
@@ -66,6 +66,21 @@ int	ft_word_count(const char *str, char c)
 	return (y);
 }
 
+static char	type(char *str)
+{	int	i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&'))
+		return ('G');
+	else if (str[i] == '|')
+		return ('P');
+	else if (str[i] == '>' || str[i] == '<')
+		return ('R');
+	return (' ');
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char			**str;
@@ -86,23 +101,12 @@ char	**ft_split(char const *s, char c)
 	while (ft_word_count(s, c) > ++i)
 	{
 		temp = get_next_word(temp, c, len2);
-		str[i] = (char *)malloc((*len2 + 1) * sizeof(char));
+		str[i] = (char *)malloc((*len2 + 2) * sizeof(char));
+		str[i][0] = type(temp);
 		if (!str[i])
 			return (free_tab(str));
-		ft_strlcpy(str[i], temp, (*(len2) + 1));
+		ft_strlcpy(str[i], temp, (*(len2) + 1), 1);
 	}
 	str[i] = NULL;
 	return (str);
 }
-/*
-int    main(void)
-{
-  char **p;
-	int i;
-	char s[]="";
-	p = ft_split("", ' ');
-	i = 0;
-	  printf("%s\n",p[0]);
-	  return(0);
-}
-*/

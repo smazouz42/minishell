@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/30 17:29:52 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/15 20:53:50 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ void ft_make_cmd_ap_list(t_stack **items_lst, char **items)
 		items++;
 	}
 }
-void	parser(char *input)
+t_tree	*parser(char *input)
 {
-	// if(check_errors(input) == 1)
-	// 	return ;
-	t_stack *items_lst;
+	t_tree	*tree;
 
-	items_lst = NULL;
+	if(check_errors(input) == 1)
+		return ;
 	input = postfix_expression(input);
-	ft_make_cmd_ap_list(&items_lst, ft_split(input,','));
+	tree = tree_of_life(ft_split(input,','));
 }

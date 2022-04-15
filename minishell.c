@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/30 17:30:26 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/14 16:22:43 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	color(int c_nb)
-{
-	if (c_nb == RED)
-		write(1, "\033[0;31m", slen("\033[0;31m"));
-	if (c_nb == BLUE)
-		write(1, "\033[0;34m", slen("\033[0;34m"));
-	if (c_nb == CYAN)
-		write(1, "\033[1;36m", slen("\033[0;36m"));
-	if (c_nb == YELLOW)
-		write(1, "\033[0;33m", slen("\033[0;33m"));
-	if (c_nb == WHITE)
-		write(1, "\033[0;37m", slen("\033[0;37m"));
-	if (c_nb == GREEN)
-		write(1, "\033[0;32m", slen("\033[0;32m"));
-}
 
 void	sighandler(int sig)
 {
