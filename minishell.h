@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/15 20:53:03 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/19 02:59:49 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+#include <fcntl.h>
 
 # define PROMPT "\033[0;32m➜  \033[1;36mminishell \033[0;33m✗ \033[0;0m"
 
@@ -56,7 +57,8 @@ typedef struct s_cmd
     // int		valid;
     char	*name;
     // char	**l;
-    // char	*path;
+    char	*path;
+    // char    *new
 }				t_cmd;
 
 typedef struct s_op
@@ -90,7 +92,8 @@ typedef struct s_tree
     struct s_tree	*branch2;
     t_cmd			*cmd;
     char			*op;
-    // t_file			*file;
+    int             oufile;
+    int             infile;
 	int				branch_type;
 }				t_tree;
 //utils
@@ -102,14 +105,16 @@ void	error_msg(char *error);
 void	color(int c_nb);
 int		ft_strncmp(char *s1, char *s2, int n);
 int		lst_size(char **lst);
+size_t ft_strlen(const char *str);
+char	**ft_path_split(char const *s, char c);
 
 //4 parce
-t_tree	*parser(char *input);
+t_tree	*parser(char *input, char **env);
 int		check_errors(char *input);
 char	*add_parentheses(char *input);
 char	*postfix_expression(char *line);
-void	tree_expansion(t_tree *tree, char **lst);
-t_tree	*tree_of_life(char **lst);
+void	tree_expansion(t_tree *tree, char **lst, char **env);
+t_tree	*tree_of_life(char **lst, char **env);
 
 //fix_post
 char	*ft_substr(char *s, unsigned int start, size_t len);
@@ -123,4 +128,7 @@ t_stack	*ft_lstlast(t_stack *lst);
 void	ft_lstdellast(t_stack **stack);
 t_stack	*ft_lstnew(char *op, int prio);
 void	ft_lstdelone(t_stack *lst, void (*del)(void *));
+//execution
+int    ft_execution(t_tree *tree, char **env, int ou, int in);
+char *cmd_path(char **env , char *cmd);
 #endif

@@ -1,7 +1,8 @@
 NAME = minishell
 INC = minishell.h
 SRC = utils.c parcer.c check_errors.c add_parentheses.c postfix_expression.c ft_lstadd_back.c ft_lstclear.c ft_lstdellast.c ft_lstdelone.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_substr.c ft_split.c \
-		ft_strlcpy.c
+		ft_strlcpy.c utils0.c tree_of_life.c execution.c cmd_path.c ft_strlen.c ft_path_split.c
+# SRC = $(shell ls *.c)
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g

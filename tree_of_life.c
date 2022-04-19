@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_of_life.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:13:08 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/15 20:52:02 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/19 02:52:37 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**split_cmd_lst(char **lst, int size, int reset)
 	return (lstlcpy(lst, start, end));
 }
 
-static void	growing_branches(t_tree *tree, char **lst, int size)
+static void	growing_branches(t_tree *tree, char **lst, int size, char **env)
 {
 	t_tree	*branch1;
 	t_tree	*branch2;
@@ -64,26 +64,22 @@ static void	growing_branches(t_tree *tree, char **lst, int size)
 	tree->branch2 = branch2;
 	branch1->previous = tree;
 	branch2->previous = tree;
-	tree_expansion(branch2, split_cmd_lst(lst, size, 1));
-	tree_expansion(branch1, split_cmd_lst(lst, size, 0));
+	tree_expansion(branch2, split_cmd_lst(lst, size, 1), env);
+	tree_expansion(branch1, split_cmd_lst(lst, size, 0), env);
 }
 
-void	tree_expansion(t_tree *tree, char **lst)
+void	tree_expansion(t_tree *tree, char **lst, char **env)
 {
 	int		i;
 	int		size;
 
 	size = lst_size(lst);
 	i = 0;
-	while (lst[i])
-		printf("[%s]\n", lst[i++]);
-	printf("\n");
-	i = 0;
 	if (lst[size - 1][0] != ' ')
 	{
 		tree->cmd = NULL;
 		tree->op = lst[size - 1] + 1;
-		growing_branches(tree, lst, size);
+		growing_branches(tree, lst, size, env);
 	}
 	else
 	{
@@ -92,15 +88,16 @@ void	tree_expansion(t_tree *tree, char **lst)
 		tree->op = NULL;
 		tree->cmd = malloc(sizeof(t_cmd));
 		tree->cmd->name = lst[0];
+		tree->cmd->path = cmd_path(env,lst[0]);
 	}
 }
 
-t_tree	*tree_of_life(char **lst)
+t_tree	*tree_of_life(char **lst, char **env)
 {
 	t_tree	*tree;
 
 	tree = malloc(sizeof(t_tree));
 	tree->previous = NULL;
-	tree_expansion(tree, lst);
+	tree_expansion(tree, lst, env);
 	return (tree);
 }

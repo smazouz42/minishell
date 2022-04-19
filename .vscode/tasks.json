@@ -3,11 +3,15 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc build active file",
-            "command": "/usr/bin/gcc",
+            "command": "clang",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "-L",
+                "/Users/smazouz/Downloads/readline-8.1",
+                "-I", "/Users/smazouz/Downloads/readline-8.1",
+                "-lreadline",
+                "/Users/smazouz/Desktop/minishell/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
