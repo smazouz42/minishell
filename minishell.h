@@ -6,7 +6,7 @@
 /*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/19 02:59:49 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/20 06:41:51 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ int		ft_strncmp(char *s1, char *s2, int n);
 int		lst_size(char **lst);
 size_t ft_strlen(const char *str);
 char	**ft_path_split(char const *s, char c);
+int     ft_strcmp(char *s1, char *s2);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
+int	is_alpha_n(char c);
 
 //4 parce
 t_tree	*parser(char *input, char **env);
@@ -130,5 +134,16 @@ t_stack	*ft_lstnew(char *op, int prio);
 void	ft_lstdelone(t_stack *lst, void (*del)(void *));
 //execution
 int    ft_execution(t_tree *tree, char **env, int ou, int in);
-char *cmd_path(char **env , char *cmd);
+char    *cmd_path(char **env , char *cmd);
+char	*ft_find_path(char **env, const char *path);
+//here_doc_functions
+void	read_from_here_doc(int fd_in, char *limiter, char **env);
+int     check_for_dollar(char *line);
+char	*up_line(char *line, char **env);
+char	*ft_make_new_line(char *line, char *var, int size, int dollar_number);
+char	*rest_of_line(char *line);
+char	*ft_read(void);
+char	*var_name(char *line);
+int     ft_get_line(char *line);
+
 #endif

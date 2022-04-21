@@ -6,7 +6,7 @@
 /*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:13:08 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/19 02:52:37 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/19 23:20:40 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	tree_expansion(t_tree *tree, char **lst, char **env)
 		tree->branch2 = NULL;
 		tree->op = NULL;
 		tree->cmd = malloc(sizeof(t_cmd));
-		tree->cmd->name = lst[0];
+		tree->cmd->name = lst[0] + 1;
 		tree->cmd->path = cmd_path(env,lst[0]);
 	}
 }

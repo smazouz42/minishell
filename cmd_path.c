@@ -96,7 +96,7 @@ static int	check_name(char *str, size_t *l, const char *path)
 	else
 		return (0);
 }
-static char	*ft_find_path(char **env, const char *path)
+char	*ft_find_path(char **env, const char *path)
 {
 	size_t	x;
 	size_t	*l;
