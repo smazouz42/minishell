@@ -12,13 +12,16 @@ int    exec_cmd(t_tree *tree, char **env, int ou , int in)
             close(in);
         if(execve(tree->cmd->path, ft_path_split(tree->cmd->name, ' '), env) == -1)
         {
-            return(0);
+            ft_putstr_fd("Minishell: ", 2);
+            ft_putstr_fd(tree->cmd->name, 2);
+            ft_putstr_fd(": command not found\n", 2);
+			return(0);
         }
     }
     else
     {
-        if (ou != 1)
-            close(ou);
+        // if (ou != 1)
+        //     close(ou);
         if (in != 0)
             close(in);
         wait(NULL);
@@ -41,33 +44,33 @@ int    ft_execution(t_tree *tree, char **env, int ou , int in)
     {
         if(ft_strcmp(tree->op,"&&") == 0)
         {
-            ft_execution(tree->branch1, env , 1, 0);
-            ft_execution(tree->branch2, env, 1, 0);
+            if(ft_execution(tree->branch1, env , ou, in) != 0)
+            	ft_execution(tree->branch2, env, ou, in);
         }
         else if(ft_strcmp(tree->op, "||") == 0)
         {
-            if(ft_execution(tree->branch1, env, 1 , 0) == 0)
-                ft_execution(tree->branch2, env, 1 , 0);
+            if(ft_execution(tree->branch1, env, ou , in) == 0)
+                ft_execution(tree->branch2, env, ou , in);
         }
         else if(ft_strcmp(tree->op, "|") == 0)
         {
             ft_execution(tree->branch1, env , p[1],in);
-            sleep();
+            close(p[0]);
             ft_execution(tree->branch2, env, ou , p[0]);
             close(p[1]);
-            close(p[0]);
         }
 
         else if(ft_strcmp(tree->op ,">") == 0)
         {
             fd_out = open(tree->branch2->cmd->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-            while((ft_strcmp(tree->branch1->op, ">") == 0 || ft_strcmp(tree->branch1->op, ">>") == 0 )&& tree->branch1->op != NULL )
-            {
-                tree = tree->branch1;
-                fd_tmp = open(tree->branch2->cmd->name, O_RDWR | O_CREAT | O_TRUNC, 0777);
-                close(fd_tmp);
-            }
-            ft_execution(tree->branch1, env, fd_out, in);
+            // while((ft_strcmp(tree->branch1->op, ">") == 0 || ft_strcmp(tree->branch1->op, ">>") == 0 )&& tree->branch1->op != NULL )
+            // {
+            //     tree = tree->branch1;
+            //     fd_tmp = open(tree->branch2->cmd->name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+            //     close(fd_tmp);
+            // }
+            if (ft_execution(tree->branch1, env, fd_out, in))
+				return(0);
         }
         else if(ft_strcmp(tree->op ,">>") == 0)
         {
@@ -110,15 +113,8 @@ int    ft_execution(t_tree *tree, char **env, int ou , int in)
     }
     else
         {
-            if(tree->cmd->path == NULL)
-            {
-                printf("Minishell: %s: command not found\n",tree->cmd->name);
-                return(0);
-            }
-            else
-            {
-                exec_cmd(tree, env , ou , in);
-            }
+            if(exec_cmd(tree, env , ou , in) == 0)
+				return(0);
         }
     return(1);
 }

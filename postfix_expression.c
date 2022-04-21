@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:45:32 by moulmado          #+#    #+#             */
-/*   Updated: 2022/03/27 17:14:06 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/21 09:28:10 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static int	get_prio(char *line ,int len, int yes)
 {
-	if (yes == 1 &&  (line[len] == '|' || line[len] == '>' || line[len] == '<'))
+	if (yes == 1 && line[len] == '|')
 		return (2);
+	if (yes == 1 &&  (line[len] == '>' || line[len] == '<'))
+		return (3);
 	if (yes == 2 &&  (line[len] == '|' || line[len] == '&'))
 		return (0);
 	if ((line[len] == '>' || line[len] == '<') && yes == 2)
-		return (2);
+		return (3);
 	if (line[len] == '(')
 		return (1);
 	if (line[len] == ')')
