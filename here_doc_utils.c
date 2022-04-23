@@ -89,19 +89,19 @@ int	check_for_dollar(char *line)
 	return (len);
 }
 
-void	read_from_here_doc(int fd_in, char *limiter, char **env)
+int	read_from_here_doc(int fd_in, char *limiter, char **env)
 {
 	char	*line;
 
 	line = ft_read();
 	if (!line)
-		exit(1);
+		return(0);
 	while (ft_strcmp(line, limiter) != 10)
 	{
 		if (ft_strlen(line) == 0)
 		{
 			free(line);
-			return ;
+			return(0);
 		}
 		while (check_for_dollar(line) == -1)
 		{
@@ -112,4 +112,5 @@ void	read_from_here_doc(int fd_in, char *limiter, char **env)
 		line = ft_read();
 	}
 	free(line);
+	return(1);
 }

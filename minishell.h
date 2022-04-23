@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/21 09:52:59 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:45:45 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ typedef struct s_tree
     struct s_tree	*branch2;
     t_cmd			*cmd;
     char			*op;
-    int             oufile;
-    int             infile;
+    int             fd;
 	int				branch_type;
 }				t_tree;
 //utils
@@ -137,7 +136,7 @@ int    ft_execution(t_tree *tree, char **env, int ou, int in);
 char    *cmd_path(char **env , char *cmd);
 char	*ft_find_path(char **env, const char *path);
 //here_doc_functions
-void	read_from_here_doc(int fd_in, char *limiter, char **env);
+int	read_from_here_doc(int fd_in, char *limiter, char **env);
 int     check_for_dollar(char *line);
 char	*up_line(char *line, char **env);
 char	*ft_make_new_line(char *line, char *var, int size, int dollar_number);
