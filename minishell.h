@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/23 02:45:45 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/23 06:20:31 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ typedef struct s_cmd
     // char    *new
 }				t_cmd;
 
-typedef struct s_op
-{
-    int	prio;
-}				t_op;
-
 typedef struct s_file
 {
     char	*name;
@@ -73,16 +68,6 @@ typedef struct s_file
     int		fd;
     t_cmd	*cmd;
 }				t_file;
-
-// typedef struct s_list
-// {
-//     int     type;
-//     t_file *file;
-//     t_cmd   *cmd;
-//     t_op    *op;
-//     struct s_list *next;
-//     struct s_list *prev;
-// }   t_stack;
 
 //tree
 typedef struct s_tree
@@ -131,12 +116,15 @@ t_stack	*ft_lstlast(t_stack *lst);
 void	ft_lstdellast(t_stack **stack);
 t_stack	*ft_lstnew(char *op, int prio);
 void	ft_lstdelone(t_stack *lst, void (*del)(void *));
+
 //execution
+void	here_doc_execute(t_tree *tree, char **env);
 int    ft_execution(t_tree *tree, char **env, int ou, int in);
 char    *cmd_path(char **env , char *cmd);
 char	*ft_find_path(char **env, const char *path);
+
 //here_doc_functions
-int	read_from_here_doc(int fd_in, char *limiter, char **env);
+int		read_from_here_doc(int fd_in, char *limiter, char **env);
 int     check_for_dollar(char *line);
 char	*up_line(char *line, char **env);
 char	*ft_make_new_line(char *line, char *var, int size, int dollar_number);

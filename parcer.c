@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/22 01:28:10 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/04/23 07:07:17 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,14 @@ static void	cleanse(char *s)
 }
 t_tree	*parser(char *input, char **env)
 {
+	t_tree	*tree;
+
 	if(check_errors(input) == 1)
 		return(NULL);
 	input = postfix_expression(input);
 	printf("%s\n",input);
 	cleanse(input);
-	return (tree_of_life(ft_split(input,','),env));
+	tree = tree_of_life(ft_split(input,','),env);
+	here_doc_execute(tree, env);
+	return (tree);
 }

@@ -34,7 +34,7 @@ int    ft_execution(t_tree *tree, char **env, int ou , int in)
     int fd_out;
     int fd_in = 0;
     int fd_tmp = 0;
-    int fd_tmp2;
+    // int fd_tmp2;
     t_tree *tree_tmp = NULL;
     pipe(p);
 
@@ -103,9 +103,9 @@ int    ft_execution(t_tree *tree, char **env, int ou , int in)
                     }
                     else
                     {
-                        fd_tmp2 = open("o", O_RDWR | O_CREAT | O_TRUNC , 0644);
-                        read_from_here_doc(fd_tmp2, tree_tmp->branch2->cmd->name, env);
-                        close(fd_tmp2);
+                        // fd_tmp2 = open("o", O_RDWR | O_CREAT | O_TRUNC , 0644);
+                        // read_from_here_doc(fd_tmp2, tree_tmp->branch2->cmd->name, env);
+                        // close(fd_tmp2);
                         tree_tmp = tree_tmp->previous;
                     }
                 }
@@ -121,23 +121,23 @@ int    ft_execution(t_tree *tree, char **env, int ou , int in)
                     tree = tree->branch1;
                 }
                 tree_tmp = tree->branch1;
-            while((ft_strcmp(tree_tmp->previous->op, "<<") == 0 || ft_strcmp(tree_tmp->previous->op, "<") == 0) &&
-                 tree_tmp->previous->previous != NULL && (ft_strcmp(tree_tmp->previous->previous->op, "<<") == 0 || ft_strcmp(tree_tmp->previous->previous->op, "<") == 0))
-            {
-                if(ft_strcmp(tree_tmp->previous->op, "<<") == 0)
-                {
-                    fd_tmp2 = open("o", O_RDWR | O_CREAT | O_TRUNC , 0644);
-                    read_from_here_doc(fd_tmp2, tree_tmp->previous->branch2->cmd->name, env);
-                    close(fd_tmp2);
-                    tree_tmp = tree_tmp->previous;
-                }
-                else
-                {
-                    tree_tmp = tree_tmp->previous;
-                }
-            }
-            read_from_here_doc(p[1], tree_tmp->previous->branch2->cmd->name, env);
-            close(p[1]);
+            // while((ft_strcmp(tree_tmp->previous->op, "<<") == 0 || ft_strcmp(tree_tmp->previous->op, "<") == 0) &&
+            //      tree_tmp->previous->previous != NULL && (ft_strcmp(tree_tmp->previous->previous->op, "<<") == 0 || ft_strcmp(tree_tmp->previous->previous->op, "<") == 0))
+            // {
+            //     if(ft_strcmp(tree_tmp->previous->op, "<<") == 0)
+            //     {
+            //         // fd_tmp2 = open("o", O_RDWR | O_CREAT | O_TRUNC , 0644);
+            //         // read_from_here_doc(fd_tmp2, tree_tmp->previous->branch2->cmd->name, env);
+            //         // close(fd_tmp2);
+            //         tree_tmp = tree_tmp->previous;
+            //     }
+            //     else
+            //     {
+            //         tree_tmp = tree_tmp->previous;
+            //     }
+            // }
+            // read_from_here_doc(p[1], tree_tmp->previous->branch2->cmd->name, env);
+            // close(p[1]);
             tree_tmp = tree->branch1;
             while((ft_strcmp(tree_tmp->previous->op, "<<") == 0 || ft_strcmp(tree_tmp->previous->op, "<") == 0) &&
                  tree_tmp->previous->previous != NULL && (ft_strcmp(tree_tmp->previous->previous->op, "<<") == 0 || ft_strcmp(tree_tmp->previous->previous->op, "<") == 0))
@@ -156,7 +156,7 @@ int    ft_execution(t_tree *tree, char **env, int ou , int in)
                     tree_tmp = tree_tmp->previous;
                 }
             }
-            if(ft_execution(tree->branch1, env, ou, p[0]) == 3)
+            if(ft_execution(tree->branch1, env, ou, tree->branch2->fd) == 3)
                 return (1);
         }
     }
