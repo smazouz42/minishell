@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/23 07:12:37 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/24 03:29:39 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int ac, char **av, char **env)
 	signal(2, sighandler);
 	signal(SIGQUIT, sighandler);
 	input = readline(PROMPT);
+	// input = "cat<<a&&cat<<b";
 	while (input)
 	{
 		if(input != NULL && input[0] !='\0')

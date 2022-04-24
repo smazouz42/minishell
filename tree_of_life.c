@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:13:08 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/23 06:41:16 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/24 03:29:29 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ static char	**lstlcpy(char **lst, int start, int end)
 	return (re);
 }
 
-static char	**split_cmd_lst(char **lst, int size, int reset)
+static t_tab	*split_cmd_lst(char **lst, int size, int reset, int s)
 {
-	static int	start;
-	int			end;
+	t_tab	*tab;
+	int		end;
 
+	tab = malloc(sizeof(t_tab));
+	tab->start = s;
 	if (reset)
-		start = 0;
+		tab->start = 0;
 	end = size - 2;
-	if (start)
-		return (lstlcpy(lst, 0, start - 1));
+	if (tab->start)
+		return (tab->lst = lstlcpy(lst, 0, tab->start - 1), tab);
 	if (lst[size - 2][0] == ' ')
-		start = size - 2;
+		tab->start = size - 2;
 	else
 	{
 		size -= 2;
@@ -44,19 +46,20 @@ static char	**split_cmd_lst(char **lst, int size, int reset)
 		{
 			if (lst[size][0] != ' ' && lst[size - 1][0] == ' ' && lst[size - 2][0] == ' ')
 			{
-				start = size - 2;
+				tab->start = size - 2;
 				break;
 			}
 			size--;
 		}
 	}
-	return (lstlcpy(lst, start, end));
+	return (tab->lst = lstlcpy(lst, tab->start, end), tab);
 }
 
 static void	growing_branches(t_tree *tree, char **lst, int size, char **env)
 {
-	t_tree	*branch1;
-	t_tree	*branch2;
+	t_tree		*branch1;
+	t_tree		*branch2;
+	t_tab		*tab;
 
 	branch1 = malloc(sizeof(t_tree));
 	branch2 = malloc(sizeof(t_tree));
@@ -64,8 +67,9 @@ static void	growing_branches(t_tree *tree, char **lst, int size, char **env)
 	tree->branch2 = branch2;
 	branch1->previous = tree;
 	branch2->previous = tree;
-	tree_expansion(branch2, split_cmd_lst(lst, size, 1), env);
-	tree_expansion(branch1, split_cmd_lst(lst, size, 0), env);
+	tab = split_cmd_lst(lst, size, 1, 0);
+	tree_expansion(branch2, tab->lst, env);
+	tree_expansion(branch1, split_cmd_lst(lst, size, 0, tab->start)->lst, env);
 }
 
 void	tree_expansion(t_tree *tree, char **lst, char **env)

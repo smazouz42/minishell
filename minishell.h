@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/23 06:20:31 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/24 03:21:10 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_int
     int	len;
     int	tmp;
 }				t_int;
+typedef struct s_tab
+{
+	char	**lst;
+	int		start;
+}				t_tab;
+
 typedef struct s_cmd
 {
     // int		valid;
