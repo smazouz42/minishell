@@ -1,6 +1,6 @@
 NAME = minishell
 INC = minishell.h
-SRC = utils.c parcer.c check_errors.c postfix_expression.c ft_lstadd_back.c ft_lstclear.c ft_lstdellast.c ft_lstdelone.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_substr.c ft_split.c \
+SRC = utils.c parser.c check_errors.c postfix_expression.c ft_lstadd_back.c ft_lstclear.c ft_lstdellast.c ft_lstdelone.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_substr.c ft_split.c \
 		ft_strlcpy.c utils0.c tree_of_life.c execution.c execute_here_doc.c cmd_path.c ft_strlen.c ft_path_split.c ft_strcmp.c here_doc_utils.c here_doc_utils_1.c ft_putstr_fd.c ft_alpha_numeric.c
 # SRC = $(shell ls *.c)
 OBJ = $(SRC:.c=.o)
