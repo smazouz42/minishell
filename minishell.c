@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/24 03:29:39 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:51:44 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+int status;
 void	sighandler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1,"\n",1);
-		rl_on_new_line();
-		rl_replace_line("",0);
-		rl_redisplay();
+		// write(1,"\n",1);
+		// rl_on_new_line();
+		// rl_replace_line("",0);
+		// rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 		return ;
@@ -56,14 +56,12 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	(void)env;
 	char **new_env;
 	if (!env[0])
 		return (0);
 	signal(2, sighandler);
 	signal(SIGQUIT, sighandler);
 	input = readline(PROMPT);
-	// input = "cat<<a&&cat<<b";
 	while (input)
 	{
 		if(input != NULL && input[0] !='\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/24 03:21:10 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/26 21:03:45 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ void	here_doc_execute(t_tree *tree, char **env);
 int    ft_execution(t_tree *tree, char **env, int ou, int in);
 char    *cmd_path(char **env , char *cmd);
 char	*ft_find_path(char **env, const char *path);
+void    run_redirect_input(t_tree *tree, char **env , int ou , int in);
+void    run_redirect_output(t_tree *tree, char **env , int in);
+void    run_here_doc(t_tree *tree, char **env , int ou);
+void    run_redirect_output_append(t_tree *tree, char **env , int in);
+void    run_and_or(t_tree *tree, char **env, int ou, int in);
 
 //here_doc_functions
 int		read_from_here_doc(int fd_in, char *limiter, char **env);

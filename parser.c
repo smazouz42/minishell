@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/24 03:26:43 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/04/25 17:09:24 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_tree	*parser(char *input, char **env)
 	if(check_errors(input) == 1)
 		return(NULL);
 	input = postfix_expression(input);
-	// printf("%s\n",input);
 	cleanse(input);
 	tree = tree_of_life(ft_split(input,','),env);
 	here_doc_execute(tree, env);
