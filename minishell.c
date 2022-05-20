@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/26 20:51:44 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/05/20 11:18:45 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	sighandler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// write(1,"\n",1);
-		// rl_on_new_line();
-		// rl_replace_line("",0);
-		// rl_redisplay();
+		write(1,"\n",1);
+		rl_on_new_line();
+		rl_replace_line("",0);
+		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 		return ;
@@ -53,10 +53,10 @@ int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	t_tree *tree;
+	char **new_env;
 
 	(void)ac;
 	(void)av;
-	char **new_env;
 	if (!env[0])
 		return (0);
 	signal(2, sighandler);

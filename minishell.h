@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/26 21:03:45 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/05/18 18:21:35 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ char	*add_parentheses(char *input);
 char	*postfix_expression(char *line);
 void	tree_expansion(t_tree *tree, char **lst, char **env);
 t_tree	*tree_of_life(char **lst, char **env);
+void	rm_rf_spaces(t_tree *tree);
 
 //fix_post
 char	*ft_substr(char *s, unsigned int start, size_t len);
