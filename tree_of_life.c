@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:13:08 by moulmado          #+#    #+#             */
-/*   Updated: 2022/05/18 18:22:29 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/05/21 21:15:49 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_tab	*split_cmd_lst(char **lst, int size, int reset, int s)
 	return (tab->lst = lstlcpy(lst, tab->start, end), tab);
 }
 
-static void	growing_branches(t_tree *tree, char **lst, int size, char **env)
+static void	growing_branches(t_tree *tree, char **lst, int size)
 {
 	t_tree		*branch1;
 	t_tree		*branch2;
@@ -68,11 +68,11 @@ static void	growing_branches(t_tree *tree, char **lst, int size, char **env)
 	branch1->previous = tree;
 	branch2->previous = tree;
 	tab = split_cmd_lst(lst, size, 1, 0);
-	tree_expansion(branch2, tab->lst, env);
-	tree_expansion(branch1, split_cmd_lst(lst, size, 0, tab->start)->lst, env);
+	tree_expansion(branch2, tab->lst);
+	tree_expansion(branch1, split_cmd_lst(lst, size, 0, tab->start)->lst);
 }
 
-void	tree_expansion(t_tree *tree, char **lst, char **env)
+void	tree_expansion(t_tree *tree, char **lst)
 {
 	int		i;
 	int		size;
@@ -83,7 +83,7 @@ void	tree_expansion(t_tree *tree, char **lst, char **env)
 	{
 		tree->cmd = NULL;
 		tree->op = lst[size - 1] + 1;
-		growing_branches(tree, lst, size, env);
+		growing_branches(tree, lst, size);
 	}
 	else
 	{
@@ -92,16 +92,16 @@ void	tree_expansion(t_tree *tree, char **lst, char **env)
 		tree->op = NULL;
 		tree->cmd = malloc(sizeof(t_cmd));
 		tree->cmd->name = lst[0] + 1;
-		tree->cmd->path = cmd_path(env,lst[0]);
+		tree->cmd->path = cmd_path(lst[0]);
 	}
 }
 
-t_tree	*tree_of_life(char **lst, char **env)
+t_tree	*tree_of_life(char **lst)
 {
 	t_tree	*tree;
 
 	tree = malloc(sizeof(t_tree));
 	tree->previous = NULL;
-	tree_expansion(tree, lst, env);
+	tree_expansion(tree, lst);
 	return (tree);
 }

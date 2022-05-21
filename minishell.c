@@ -6,12 +6,14 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/05/20 11:18:45 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/05/22 00:39:23 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 int status;
+
 void	sighandler(int sig)
 {
 	if (sig == SIGINT)
@@ -24,6 +26,7 @@ void	sighandler(int sig)
 	if (sig == SIGQUIT)
 		return ;
 }
+
 int	ft_size_count(char **env)
 {
 	int	size;
@@ -33,46 +36,66 @@ int	ft_size_count(char **env)
 		size++;
 	return (size);
 }
-char **envdup(char **env)
+
+void	envdup(char **env)
 {
-	char **new_env;
+	t_env	*new_env;
 	int index;
-	if(!env)
-		exit(1);
-	index = 0;
-	new_env = (char **)malloc((ft_size_count(env) + 1) * sizeof(char *));
+
+	rl_catch_signals = 0;
+	g_glob.status = 0;
+	new_env = envnew(env[0]);
+	index = 1;
 	while(env[index])
-	{
-		new_env[index] = env[index];
-		index++;
-	}
-	new_env[index] = NULL;
-	return(new_env);
+		envadd_back(new_env, envnew(env[index++]));
+	g_glob.env = new_env;
 }
+
+void	set_env(void)
+{
+	int		index;
+	int		size;
+	t_env	*env_tmp;
+
+	env_tmp = g_glob.env;
+	size = envsize(g_glob.env);
+	index = 0;
+	if (g_glob.env_tab)
+		free(g_glob.env_tab);
+	g_glob.env_tab = malloc(sizeof(char *) * size + 1);
+	while (index < size)
+	{
+		g_glob.env_tab[index] = env_tmp->content;
+		index++;
+		env_tmp = env_tmp->next;
+	}
+	g_glob.env_tab[index] = NULL;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
-	t_tree *tree;
-	char **new_env;
+	t_tree	*tree;
 
 	(void)ac;
 	(void)av;
-	if (!env[0])
-		return (0);
 	signal(2, sighandler);
 	signal(SIGQUIT, sighandler);
-	input = readline(PROMPT);
-	while (input)
+	envdup(env);
+	while (1)
 	{
+		set_env();
+		input = readline(PROMPT);
+		if (!input || !strcmp(input, "exit"))
+		{
+			write(1, "exit\n", 5);
+			exit(0);
+		}
 		if(input != NULL && input[0] !='\0')
 			add_history(input);
-		if (!strcmp(input, "exit"))
-			exit(0);
-		tree = parser(input, env);
-		new_env = envdup(env);
+		tree = parser(input);
 		if (tree)
-			ft_execution(tree, new_env , 1 , 0);
+			ft_execution(tree, 1 , 0);
 		free(input);
-		input = readline(PROMPT);
 	}
 }

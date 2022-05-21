@@ -96,7 +96,7 @@ static int	check_name(char *str, size_t *l, const char *path)
 	else
 		return (0);
 }
-char	*ft_find_path(char **env, const char *path)
+char	*ft_find_path(const char *path)
 {
 	size_t	x;
 	size_t	*l;
@@ -105,10 +105,10 @@ char	*ft_find_path(char **env, const char *path)
 	y = 0;
 	x = 0;
 	l = &y;
-	while (env[x])
+	while (g_glob.env_tab[x])
 	{
-		if (check_name(env[x], l, path) == 1 && env[x][*l] == '=')
-			return (env[x] + (*l + 1));
+		if (check_name(g_glob.env_tab[x], l, path) == 1 && g_glob.env_tab[x][*l] == '=')
+			return (g_glob.env_tab[x] + (*l + 1));
 		x++;
 	}
 	return (NULL);
@@ -129,9 +129,9 @@ static char	*ft_path(char *new_command, char **new_path)
 	}
 	return (NULL);
 }
-char *cmd_path(char **env , char *cmd)
+char *cmd_path(char *cmd)
 {
-	char *str = ft_find_path(env,"PATH");
+	char *str = ft_find_path("PATH");
     char **path = ft_path_split(str, ':');
 	path = new_path(path,ft_command(cmd));
     return(ft_path(ft_command(cmd),path));

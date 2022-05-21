@@ -56,7 +56,7 @@ char	*ft_make_new_line(char *line, char *var, int size, int dollar_number)
 	return (free(line), free(v_name), new_line[var_len_ - 1] = '\n', new_line[var_len_] = '\0', new_line);
 }
 
-char	*up_line(char *line, char **env)
+char	*up_line(char *line)
 {
 	char	*var;
 	int		size;
@@ -65,7 +65,7 @@ char	*up_line(char *line, char **env)
 
 	dollar_number = 0;
 	v_name = var_name(line);
-	var = ft_find_path(env, v_name);
+	var = ft_find_path(v_name);
 	if (!var)
 		return (free(v_name), rest_of_line(line));
 	size = (ft_strlen(line) + ft_strlen(var)) - ft_strlen(v_name);
@@ -89,7 +89,7 @@ int	check_for_dollar(char *line)
 	return (len);
 }
 
-int	read_from_here_doc(int fd_in, char *limiter, char **env)
+int	read_from_here_doc(int fd_in, char *limiter)
 {
 	char	*line;
 
@@ -105,7 +105,7 @@ int	read_from_here_doc(int fd_in, char *limiter, char **env)
 		}
 		while (check_for_dollar(line) == -1)
 		{
-			line = up_line(line, env);
+			line = up_line(line);
 		}
 		ft_putstr_fd(line, fd_in);
 		free(line);

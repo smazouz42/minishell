@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 22:27:42 by moulmado          #+#    #+#             */
-/*   Updated: 2022/04/14 16:23:09 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/05/21 23:59:43 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,30 @@ void	color(int c_nb)
 		write(1, "\033[0;37m", slen("\033[0;37m"));
 	if (c_nb == GREEN)
 		write(1, "\033[0;32m", slen("\033[0;32m"));
+}
+
+char	*join_2(char *s0, char *s1)
+{
+	int		c0;
+	int		c1;
+	int		s0_len;
+	int		s1_len;
+	char	*re;
+
+	if (!s0)
+		s0 = ft_strdup("");
+	s0_len = slen(s0);
+	s1_len = slen(s1);
+	re = (char *)malloc(s0_len + s1_len + 1);
+	if (!re)
+		return (0);
+	c0 = -1;
+	c1 = 0;
+	while (++c0 < s0_len)
+		re[c0] = s0[c0];
+	c1 = 0;
+	while (c1 < s1_len)
+		re[c0++] = s1[c1++];
+	re[c0] = '\0';
+	return (free(s0), re);
 }

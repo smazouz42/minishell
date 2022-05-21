@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/05/20 11:18:41 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/05/21 21:15:08 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void ft_make_cmd_ap_list(t_stack **items_lst, char **items)
 		prio = ft_get_item_prio(*items);
 		if(node_n == 0)
 		{
-			*items_lst = ft_lstnew(*items, prio);
+			*items_lst = ft_stacknew(*items, prio);
 			node_n++;
 		}
 		else
-			ft_lstadd_back(items_lst,ft_lstnew(*items, prio));
+			ft_stackadd_back(items_lst,ft_stacknew(*items, prio));
 		items++;
 	}
 }
@@ -69,16 +69,16 @@ static void	cleanse(char *s)
 		index++;
 	}
 }
-t_tree	*parser(char *input, char **env)
+t_tree	*parser(char *input)
 {
 	t_tree	*tree;
-
+	
 	if(check_errors(input) == 1)
 		return(NULL);
 	input = postfix_expression(input);
 	cleanse(input);
-	tree = tree_of_life(ft_split(input,','),env);
+	tree = tree_of_life(ft_split(input,','));
 	rm_rf_spaces(tree);
-	here_doc_execute(tree, env);
+	here_doc_execute(tree);
 	return (tree);
 }
