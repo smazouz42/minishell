@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/04 13:43:11 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:29:49 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	if (!env[0])
+		exit(0);
 	signal(2, sighandler);
 	signal(SIGQUIT, sighandler);
 	envdup(env);

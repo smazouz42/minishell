@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 15:13:52 by moulmado          #+#    #+#             */
-/*   Updated: 2022/05/24 11:04:47 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:24:51 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	loop_4_quotes(char *input, int *double_q, int *single_q)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (input[index])

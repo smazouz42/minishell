@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/04 13:26:04 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:34:03 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,15 @@ void	here_doc_execute(t_tree *tree);
 int		ft_execution(t_tree *tree, int ou, int in);
 char	*cmd_path(char *cmd);
 char	*ft_find_path(const char *path);
-void	run_redirect_input(t_tree *tree, int ou, int in);
+void	run_redirect_input(t_tree *tree, int ou);
 void	run_redirect_output(t_tree *tree, int in);
 void	run_here_doc(t_tree *tree, int ou);
 void	run_redirect_output_append(t_tree *tree, int in);
 void	run_and_or(t_tree *tree, int ou, int in);
+char	*ft_optimize_path(char *path, char *command);
+char	*ft_command(char *str);
+int		size_count(char **path);
+void	filr_error(char *name);
 
 //here_doc_functions
 int		read_from_here_doc(int fd_in, char *limiter);
@@ -166,6 +170,11 @@ void	env_cmd(void);
 void	echo_cmd(char **args);
 void	export_cmd(char **args);
 void	unset_cmd(char **args);
+//wildcards
+void	ft_lst_file(char *path, t_stack **list, int *index);
+char	**make_lst_file(char *cmd);
+int		check_for_wildcards(char **flags);
+char	**up_flag(char **flags, char *cmd);
 
 //leaks?
 void	free_2d(char **lst);
