@@ -6,7 +6,7 @@
 /*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/05 18:34:03 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 08:13:31 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,8 @@ char	**up_flag(char **flags, char *cmd);
 
 //leaks?
 void	free_2d(char **lst);
+//free
+void	free_list(t_stack **stack);
+void	free_array(char **array);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 19:46:51 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/05 18:36:19 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 08:18:07 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,15 @@ char	*cmd_path(char *cmd)
 {
 	char	*str;
 	char	**path;
+	char	*ret;
+	char	**tmp;
 
 	str = getenv("PATH");
 	path = ft_path_split(str, ':');
+	tmp = path;
 	path = new_path(path, ft_command(cmd));
-	return (ft_path(ft_command(cmd), path));
+	ret = ft_path(ft_command(cmd), path);
+	free_array(path);
+	free_array(tmp);
+	return (ret);
 }

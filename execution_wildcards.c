@@ -6,7 +6,7 @@
 /*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 17:50:01 by smazouz           #+#    #+#             */
-/*   Updated: 2022/06/05 18:00:53 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 08:21:23 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ char	**make_lst_file(char *cmd)
 	t_stack	*node;
 	int		index;
 	char	**str;
+	t_stack	*head;
 
 	index = 1;
 	node = ft_stacknew(cmd, 0);
 	ft_lst_file(".", &node, &index);
 	str = (char **)malloc(sizeof(char *) * index);
 	index = 0;
+	head = node;
 	while (node)
 	{
 		str[index] = node->op;
 		node = node->next;
 		index++;
 	}
+	free_list(&head);
 	str[index] = NULL;
 	return (str);
 }
