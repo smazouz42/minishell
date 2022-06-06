@@ -6,7 +6,7 @@
 /*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 19:46:51 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 08:18:07 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 09:14:24 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*ft_path(char *new_command, char **new_path)
 	{
 		if (access(ft_command(new_path[x]), F_OK) == 0
 			&& access(ft_command(new_path[x]), X_OK) == 0)
-			return (new_path[x]);
+			return (ft_strdup(new_path[x]));
 		x++;
 	}
 	return (NULL);

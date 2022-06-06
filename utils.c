@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:18:52 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 00:14:22 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/06 09:17:39 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*ft_strdup(char *s)
 	len = slen(s);
 	re = (char *)malloc(len + 1);
 	if (!re)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (s[i])
 	{
