@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/05 16:29:49 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 07:43:18 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	main(int ac, char **av, char **env)
 		if (input != NULL && input[0] != '\0')
 			add_history(input);
 		tree = parser(input);
-		if (tree)
-			ft_execution(tree, 1, 0);
-		free(input);
+		// if (tree)
+		// 	ft_execution(tree, 1, 0);
+		tree_free(tree, tree->branch1, tree->branch2);
 	}
 }

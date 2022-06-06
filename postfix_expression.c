@@ -6,13 +6,13 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:45:32 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/04 13:34:26 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/06 02:10:41 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_prio(char *line , int len, int yes)
+static int	get_prio(char *line, int len, int yes)
 {
 	if (yes == 1 && line[len] == '|')
 		return (2);
@@ -34,7 +34,7 @@ static char	*last_command(char *line, t_stack **stack, t_int *ints)
 	char	*str;
 
 	str = NULL;
-	str = ft_strjoin(str, ft_substr(line, ints->tmp, (ints->len - ints->tmp)));
+	str = join_ndfree(str, ft_substr(line, ints->tmp, (ints->len - ints->tmp)));
 	while (ft_stacklast(*stack))
 	{
 		str = ft_strjoin(str, ft_stacklast(*stack)->op);
@@ -52,7 +52,7 @@ static char	*get_op_nd_cmd(char *line, t_stack **stack, t_int *ints, int yes)
 	if (yes == EXODIA)
 		return (last_command(line, stack, ints));
 	prio = get_prio(line, ints->len, yes);
-	str = ft_strjoin(str,ft_substr(line, ints->tmp, (ints->len - ints->tmp)));
+	str = join_ndfree(str, ft_substr(line, ints->tmp, (ints->len - ints->tmp)));
 	if (!ft_stacksize(*stack))
 		*stack = ft_stacknew(ft_substr(line, ints->len, yes), prio);
 	else
@@ -105,26 +105,27 @@ char	*postfix_expression(char *line)
 			ints.len++;
 		}
 		else if (line[ints.len] == '|' && line[ints.len + 1] == '|')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
 		else if (line[ints.len] == '&' && line[ints.len + 1] == '&')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
 		else if (line[ints.len] == '|' && line[ints.len + 1] != '|')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
 		else if (line[ints.len] == '>' && line[ints.len + 1] == '>')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
 		else if (line[ints.len] == '<' && line[ints.len + 1] == '<')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 2));
 		else if (line[ints.len] == '<' && line[ints.len + 1] != '<')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
 		else if (line[ints.len] == '>' && line[ints.len + 1] != '>')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
 		else if (line[ints.len] == '(')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
 		else if (line[ints.len] == ')')
-			poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
+			poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 1));
 		else
 			ints.len++;
 	}
-	poxfix = ft_strjoin(poxfix, get_op_nd_cmd(line, &stack, &ints, 666));
+	poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 666));
+	free(line);
 	return (poxfix);
 }

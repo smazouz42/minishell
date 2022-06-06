@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 15:13:52 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/05 18:24:51 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 00:18:21 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ static int	parenthesses_error(int prentheses)
 {
 	if (prentheses > 0)
 	{
-		error_msg("expected this \")\" to match this \"(\"\n");
+		ft_putstr_fd("Minishell: syntax error: ", 2);
+		ft_putstr_fd("expected this \")\" to match this \"(\"\n", 2);
 		return (1);
 	}
 	if (prentheses < 0)
 	{
-		error_msg("expected this \"(\" before this \")\"\n");
+		ft_putstr_fd("Minishell: syntax error: ", 2);
+		ft_putstr_fd("expected this \"(\" before this \")\"\n", 2);
 		return (1);
 	}
 	return (0);

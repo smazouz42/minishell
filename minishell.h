@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 08:13:31 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 08:42:43 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,11 @@ extern t_glob	g_glob;
 
 //utils
 char	*ft_strjoin(char *s0, char *s1);
+char	*join_ndfree(char *s0, char *s1);
 char	*join_2(char *s0, char *s1);
 int		slen(char *c);
 int		ft_strchr(char *str, int c);
 char	*ft_strdup(char *s);
-void	error_msg(char *error);
-void	color(int c_nb);
 int		ft_strncmp(char *s1, char *s2, int n);
 int		lst_size(char **lst);
 size_t	ft_strlen(const char *str);
@@ -170,6 +169,7 @@ void	env_cmd(void);
 void	echo_cmd(char **args);
 void	export_cmd(char **args);
 void	unset_cmd(char **args);
+
 //wildcards
 void	ft_lst_file(char *path, t_stack **list, int *index);
 char	**make_lst_file(char *cmd);
@@ -178,8 +178,8 @@ char	**up_flag(char **flags, char *cmd);
 
 //leaks?
 void	free_2d(char **lst);
-//free
 void	free_list(t_stack **stack);
-void	free_array(char **array);
+void	tree_free(t_tree *tree, t_tree *branch1, t_tree	*branch2);
+void    free_array(char **array);
 
 #endif
