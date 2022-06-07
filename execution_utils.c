@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:01:02 by smazouz           #+#    #+#             */
-/*   Updated: 2022/06/05 18:35:23 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/07 11:34:44 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	run_redirect_input(t_tree *tree, int ou)
 			{
 				printf("minishell : %s No such file or directory\n",
 					tree_tmp->branch2->cmd->name);
+				g_glob.status = 1;
 				return ;
 			}
 		}
@@ -106,9 +107,9 @@ void	run_and_or(t_tree *tree, int ou, int in)
 {
 	if (ft_strcmp(tree->op, "&&") == 0)
 	{
-		if (ft_execution(tree->branch1, ou, in) != 3)
+		if (ft_execution(tree->branch1, ou, in) == 0)
 			ft_execution(tree->branch2, ou, in);
 	}
-	else if (ft_execution(tree->branch1, ou, in) == 3)
+	else if (ft_execution(tree->branch1, ou, in) != 0)
 		ft_execution(tree->branch2, ou, in);
 }

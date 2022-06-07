@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_of_life.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:13:08 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 09:13:16 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 16:34:59 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	tree_expansion(t_tree *tree, char **lst)
 		tree->op = NULL;
 		tree->cmd = malloc(sizeof(t_cmd));
 		tree->cmd->name = ft_strdup(lst[0] + 1);
-		tree->cmd->path = cmd_path(rm_quotes(ft_strdup(lst[0] + 1)));
+		tree->cmd->path = NULL;
+		tree->cmd->args = NULL;
 	}
 	free_2d(lst);
 }

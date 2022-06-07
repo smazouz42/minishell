@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 10:31:43 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/02 10:18:07 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/07 06:26:15 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ static char	*rest_of_line(char *line, int *dollar_index)
 	while (line[len_])
 		rest[len++] = line[len_++];
 	rest[len] = '\0';
-	// free(line);
 	return (rest);
 }
 
-static char	*make_new_line(char *line, char *var, int size, int *dollar_index)
+static char	*make_new_line(char *line, char *var,
+	char *v_name, int *dollar_index)
 {
 	int		var_len;
 	int		var_len_;
@@ -89,7 +89,7 @@ static char	*make_new_line(char *line, char *var, int size, int *dollar_index)
 	new_var = 0;
 	var_len = 0;
 	var_len_ = 0;
-	new_line = malloc(size + 1);
+	new_line = malloc(ft_strlen(line) + ft_strlen(var) - ft_strlen(v_name) + 1);
 	if (!new_line)
 		return (NULL);
 	while (line[var_len])
@@ -98,31 +98,24 @@ static char	*make_new_line(char *line, char *var, int size, int *dollar_index)
 		{
 			while (var[new_var])
 				new_line[var_len_++] = var[new_var++];
-			var_len += (ft_strlen(variable_name(line)) + 1);
+			var_len += (ft_strlen(v_name) + 1);
 		}
 		new_line[var_len_++] = line[var_len++];
 	}
-	new_line[var_len_] = '\0';
-	return (new_line);
+	return (new_line[var_len_] = '\0', free(v_name), new_line);
 }
 
 static char	*up_line(char *line, int *dollar_index)
 {
 	char	*var;
-	int		size;
 	char	*v_name;
 	char	*re;
 
-	size = 0;
 	v_name = variable_name(line);
 	var = getenv(v_name);
 	if (!var)
 		return (free(v_name), rest_of_line(line, dollar_index));
-	// var = join_2(join_2(ft_strdup("|"), var), "|");
-	size = ft_strlen(line) + ft_strlen(var) - ft_strlen(v_name);
-	free(v_name);
-	re = make_new_line(line, var, size, dollar_index);
-	// free(line);
+	re = make_new_line(line, var, v_name, dollar_index);
 	return (re);
 }
 
@@ -157,10 +150,17 @@ static int	check_for_dollar(char *line, int *dollar_index)
 
 char	*expand_var(char *str)
 {
-	int	dollar_index;
+	int		dollar_index;
+	char	*tmp;
 
+	tmp = NULL;
 	dollar_index = -1;
 	while (check_for_dollar(str, &dollar_index))
+	{
+		if (tmp)
+			free(tmp);
 		str = up_line(str, &dollar_index);
+		tmp = str;
+	}
 	return (str);
 }
