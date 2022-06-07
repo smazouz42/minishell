@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/07 12:40:01 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:07:21 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	sighandler(int sig)
 {
+	
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -92,8 +93,10 @@ int	main(int ac, char **av, char **env)
 		if (tree)
 		{
 			ft_execution(tree, 1, 0);
+			// printf("a5555\n");
 			tree_free(tree, tree->branch1, tree->branch2);
 		}
-		printf("%d\n", g_glob.status);
+		while (1);
+		// printf("%d\n", g_glob.status);
 	}
 }

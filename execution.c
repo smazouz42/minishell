@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 16:56:51 by smazouz           #+#    #+#             */
-/*   Updated: 2022/06/07 12:47:09 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:57:29 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	exec_cmd(t_tree *tree, int ou, int in)
 	set_env();
 	if (pid == 0)
 	{
+		signal(SIGKILL, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		dup2(ou, 1);
 		if (ou != 1)
 			close(ou);
