@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:45:32 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/09 08:31:04 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:06:18 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static char	*last_command(char *line, t_stack **stack, t_int *ints)
 	return (str);
 }
 
-static void	add_to_stack(char *str, char *line, t_stack **stack, t_int *ints)
+static char	*add_to_stack(char *str, char *line,
+	t_stack **stack, t_int *ints)
 {
 	if (ints->prio == 999)
 	{
@@ -67,6 +68,7 @@ static void	add_to_stack(char *str, char *line, t_stack **stack, t_int *ints)
 		ft_stackadd_back(stack,
 			ft_stacknew(ft_substr(line, ints->len, ints->yes), ints->prio));
 	}
+	return (str);
 }
 
 char	*get_op_nd_cmd(char *line, t_stack **stack, t_int *ints, int yes)
@@ -82,7 +84,7 @@ char	*get_op_nd_cmd(char *line, t_stack **stack, t_int *ints, int yes)
 	if (!ft_stacksize(*stack))
 		*stack = ft_stacknew(ft_substr(line, ints->len, ints->yes), ints->prio);
 	else
-		add_to_stack(str, line, stack, ints);
+		str = add_to_stack(str, line, stack, ints);
 	ints->tmp = ints->len + ints->yes;
 	ints->len += ints->yes;
 	return (str);
@@ -108,7 +110,7 @@ char	*postfix_expression(char *line)
 			ints.len++;
 		}
 		else
-			poxfix = postfix_handl(line, poxfix, &stack, &ints);
+		poxfix = postfix_handl(line, poxfix, &stack, &ints);
 	}
 	poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, &stack, &ints, 666));
 	free(line);

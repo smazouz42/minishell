@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 08:21:17 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/09 08:36:52 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:02:59 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,15 @@
 char	*postfix_handl(char *line, char *poxfix,
 		t_stack **stack, t_int *ints)
 {
-	if (line[ints->len] == '|' && line[ints->len + 1] == '|')
+	if ((line[ints->len] == '|' && line[ints->len + 1] == '|')
+		|| (line[ints->len] == '&' && line[ints->len + 1] == '&')
+		|| (line[ints->len] == '>' && line[ints->len + 1] == '>')
+		|| (line[ints->len] == '<' && line[ints->len + 1] == '<'))
 		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 2));
-	else if (line[ints->len] == '&' && line[ints->len + 1] == '&')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 2));
-	else if (line[ints->len] == '|' && line[ints->len + 1] != '|')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 1));
-	else if (line[ints->len] == '>' && line[ints->len + 1] == '>')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 2));
-	else if (line[ints->len] == '<' && line[ints->len + 1] == '<')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 2));
-	else if (line[ints->len] == '<' && line[ints->len + 1] != '<')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 1));
-	else if (line[ints->len] == '>' && line[ints->len + 1] != '>')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 1));
-	else if (line[ints->len] == '(')
-		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 1));
-	else if (line[ints->len] == ')')
+	else if ((line[ints->len] == '|' && line[ints->len + 1] != '|')
+		|| (line[ints->len] == '<' && line[ints->len + 1] != '<')
+		|| (line[ints->len] == '>' && line[ints->len + 1] != '>')
+		|| (line[ints->len] == '(' || line[ints->len] == ')'))
 		poxfix = join_ndfree(poxfix, get_op_nd_cmd(line, stack, ints, 1));
 	else
 		ints->len++;

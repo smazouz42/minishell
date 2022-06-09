@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:44 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/09 09:03:29 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/09 09:17:32 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int ac, char **av, char **env)
 		{
 			g_glob.exc_status = 0;
 			ft_execution(tree, 1, 0);
+			printf("a\n");
 			tree_free(tree, tree->branch1, tree->branch2);
 		}
 	}
