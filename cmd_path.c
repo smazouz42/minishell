@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 19:46:51 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 09:14:24 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/08 20:30:45 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*ft_find_path(const char *path)
 	y = 0;
 	x = 0;
 	l = &y;
+	set_env();
 	while (g_glob.env_tab[x])
 	{
 		if (check_name(g_glob.env_tab[x], l, path) == 1
@@ -74,14 +75,16 @@ char	*ft_find_path(const char *path)
 static char	*ft_path(char *new_command, char **new_path)
 {
 	int		x;
+	char	*tmp;
 
 	if (access(new_command, F_OK) == 0 && access(new_command, X_OK) == 0)
-		return (new_command);
+		return (ft_strdup(new_command));
 	x = 0;
 	while (new_path[x])
 	{
-		if (access(ft_command(new_path[x]), F_OK) == 0
-			&& access(ft_command(new_path[x]), X_OK) == 0)
+		tmp = new_path[x];
+		if (access(tmp, F_OK) == 0
+			&& access(tmp, X_OK) == 0)
 			return (ft_strdup(new_path[x]));
 		x++;
 	}
@@ -95,11 +98,13 @@ char	*cmd_path(char *cmd)
 	char	*ret;
 	char	**tmp;
 
+	g_glob.exc_status = 1;
+	set_env();
 	str = getenv("PATH");
 	path = ft_path_split(str, ':');
 	tmp = path;
-	path = new_path(path, ft_command(cmd));
-	ret = ft_path(ft_command(cmd), path);
+	path = new_path(path, cmd);
+	ret = ft_path(cmd, path);
 	free_array(path);
 	free_array(tmp);
 	return (ret);

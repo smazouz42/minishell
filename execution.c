@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 16:56:51 by smazouz           #+#    #+#             */
-/*   Updated: 2022/06/05 18:26:58 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/08 20:30:38 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@ static int	ft_cmd_error(char *name)
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	g_glob.status = 127;
-	return (3);
+	exit (2);
+}
+
+static void	set_status(void)
+{
+	if (g_glob.status == 512)
+		g_glob.status = 127;
+	if (g_glob.status == 256)
+		g_glob.status = 1;
 }
 
 int	exec_cmd(t_tree *tree, int ou, int in)
@@ -27,9 +34,9 @@ int	exec_cmd(t_tree *tree, int ou, int in)
 	int	index;
 
 	pid = fork();
-	set_env();
 	if (pid == 0)
 	{
+		signal(SIGKILL, SIG_DFL);
 		dup2(ou, 1);
 		if (ou != 1)
 			close(ou);
@@ -37,7 +44,7 @@ int	exec_cmd(t_tree *tree, int ou, int in)
 		if (in != 0)
 			close(in);
 		index = check_for_wildcards(tree->cmd->args);
-		while (index != 0)
+		while (index)
 		{
 			tree->cmd->args = up_flag(tree->cmd->args, tree->cmd->path);
 			index = check_for_wildcards(tree->cmd->args);
@@ -45,8 +52,9 @@ int	exec_cmd(t_tree *tree, int ou, int in)
 		if (execve(tree->cmd->path, tree->cmd->args, g_glob.env_tab) == -1)
 			return (ft_cmd_error(tree->cmd->args[0]));
 	}
-	waitpid(pid, 0, 0);
-	return (0);
+	waitpid(pid, &g_glob.status, 0);
+	set_status();
+	return (g_glob.status);
 }
 
 void	run_pipe(t_tree *tree, int ou, int in)
@@ -78,8 +86,6 @@ void	run_pipe(t_tree *tree, int ou, int in)
 
 int	ft_execution(t_tree *tree, int ou, int in)
 {
-	if (!tree)
-		exit(5);
 	if (tree->op != NULL)
 	{
 		if (ft_strcmp(tree->op, "&&") == 0 || ft_strcmp(tree->op, "||") == 0)
@@ -98,8 +104,11 @@ int	ft_execution(t_tree *tree, int ou, int in)
 	else
 	{
 		tree->cmd->args = split_cmd_nd_args(tree->cmd->name);
-		if (exec_cmd(tree, ou, in) == 3)
-			return (3);
+		tree->cmd->path = cmd_path(tree->cmd->args[0]);
+		if (execute_builtins(tree->cmd->args, ou))
+			return (g_glob.exc_status = 0, 0);
+		else if (exec_cmd(tree, ou, in) == 0)
+			return (g_glob.exc_status = 0, 0);
 	}
 	return (1);
 }

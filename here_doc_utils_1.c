@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 18:48:44 by smazouz           #+#    #+#             */
-/*   Updated: 2022/06/05 18:48:49 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/08 20:32:04 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*var_name(char *line)
 		x++;
 		len++;
 	}
-	var[len] = '\0';
+	var[x] = '\0';
 	return (var);
 }
 

@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 14:58:57 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 08:42:43 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:05:47 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_glob
 	char	*home;
 	char	**env_tab;
 	t_env	*env;
+	int		exc_status;
 }				t_glob;
 
 typedef struct s_stack
@@ -107,6 +108,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 int		is_alpha_n(char c);
 void	set_env(void);
+int		ft_atoi(const char *s);
 
 //4 parce
 t_tree	*parser(char *input);
@@ -155,6 +157,7 @@ char	*ft_optimize_path(char *path, char *command);
 char	*ft_command(char *str);
 int		size_count(char **path);
 void	filr_error(char *name);
+int		execute_builtins(char **args, int ou);
 
 //here_doc_functions
 int		read_from_here_doc(int fd_in, char *limiter);
@@ -163,12 +166,13 @@ char	*var_name(char *line);
 int		ft_get_line(char *line);
 
 //built_ins
-void	pwd_cmd(void);
-void	cd_cmd(char *path);
+void	pwd_cmd(int ou);
+void	cd_cmd(char **args);
 void	env_cmd(void);
-void	echo_cmd(char **args);
+void	echo_cmd(char **args, int ou);
 void	export_cmd(char **args);
 void	unset_cmd(char **args);
+void	exit_cmd(char **args);
 
 //wildcards
 void	ft_lst_file(char *path, t_stack **list, int *index);
@@ -180,6 +184,7 @@ char	**up_flag(char **flags, char *cmd);
 void	free_2d(char **lst);
 void	free_list(t_stack **stack);
 void	tree_free(t_tree *tree, t_tree *branch1, t_tree	*branch2);
-void    free_array(char **array);
+void	free_array(char **array);
+void	sighandler(int sig);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_wildcards.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 17:50:01 by smazouz           #+#    #+#             */
-/*   Updated: 2022/06/06 08:21:23 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/07 06:49:36 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_lst_file(char *path, t_stack **list, int *index)
 	item = readdir(dirp);
 	while (item)
 	{
-		if (strcmp(item->d_name, ".") != 0 && strcmp(item->d_name, "..") != 0)
+		if (item->d_name[0] != '.')
 		{
 			ft_stackadd_back(&node, ft_stacknew(item->d_name, 0));
 			(*index)++;
@@ -121,7 +121,8 @@ char	**up_flag(char **flags, char *cmd)
 	while (flags[flags_len])
 		flags_len++;
 	new_flags = (char **)malloc(sizeof(char *) * (flags_len + dir_len));
-	up_flags_utils(flags, current_dir, new_flags, &i);
+	up_flags_utils(flags + 1, current_dir, new_flags, &i);
 	new_flags[i] = NULL;
+	free_2d(flags);
 	return (new_flags);
 }

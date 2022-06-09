@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 12:39:20 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/03 16:54:31 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:00:58 by smazouz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ static void	execute_cd(char *path)
 	}
 }
 
-void	cd_cmd(char *path)
+void	cd_cmd(char **args)
 {
+	char	*path;
 	char	*pwd;
 
+	path = args[1];
 	pwd = getcwd(NULL, 1024);
 	if (!path)
 		cd_no_args();

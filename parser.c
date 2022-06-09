@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smazouz <smazouz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 14:49:39 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 08:14:24 by smazouz          ###   ########.fr       */
+/*   Updated: 2022/06/06 13:22:02 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ t_tree	*parser(char *input)
 	tree = tree_of_life(ft_split(input, ','));
 	rm_rf_spaces(tree);
 	here_doc_execute(tree);
+	free(input);
 	return (tree);
 }

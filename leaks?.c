@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:23:37 by moulmado          #+#    #+#             */
-/*   Updated: 2022/06/06 07:46:19 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:06:29 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	free_op_node(t_tree *tree)
 
 void	tree_free(t_tree *tree, t_tree *branch1, t_tree	*branch2)
 {
-	if (!branch1)
+	if (tree->cmd)
 	{
 		free_cmd_node(tree);
 		return ;
@@ -49,17 +49,10 @@ void	tree_free(t_tree *tree, t_tree *branch1, t_tree	*branch2)
 	if (branch1->cmd)
 		free_cmd_node(branch1);
 	else
-	{
 		tree_free(branch1, branch1->branch1, branch1->branch2);
-		free_op_node(branch1);
-	}
-	printf("in\n");
 	if (branch2->cmd)
 		free_cmd_node(branch2);
 	else
-	{
 		tree_free(branch2, branch2->branch1, branch2->branch2);
-		free_op_node(branch2);
-	}
 	free_op_node(tree);
 }
